@@ -12,24 +12,28 @@ The enabler gives the opportunity to experiment with a sensor’s real-time data
 
 - [How to start](#how-to-start)
   - [How to access the enabler](#how-to-access-the-enabler)
+      - [Sign in](#sign-in)
+      - [Create new users](#create-new-users)
   - [Initial configuration assistant](#initial-configuration-assistant)
 - [Configuration](#configuration)
   - [Configuring Context Broker](#configuring-context-broker)
     - [Services](#services)
     - [Configuring main attributes](#configuring-main-attributes)
-    - [Subscriptions Overview](#subscriptions-overview)
   - [Saving the configuration](#saving-the-configuration)
 - [Dashboard](#dashboard)
   - [Map](#map)
     - [Main attributes](#main-attributes)
-  - [Historical data](#historical-data)
+  - [Historical data](#historical-data)     
   - [Sensors](#sensors)
     - [RAW data Overview](#raw-data-overview)
-    - [Historical data Overview](#historical-data-overview)
+  - [Rules](#rules)
+    - [Create new rule](#create-new-rule)
+    - [Edit rule](#create-new-rule)  
+    - [Delete rule](#create-new-rule)
+  - [Notifications](#notifications) 
   - [Location Search Bar](#location-search-bar)
   - [Managing the sensors](#managing-the-sensors)
     - [Layers](#layers)
-    - [Filters](#filters)
 
 ## How to start
 
@@ -46,14 +50,27 @@ In order to access it, the user should introduce in the web browser’s search b
 ![WebBrowserAccess](../img/EnablerURL.PNG)
 >*Illustration 1. Enabler's URL.*
 
-[Top](#user-manual)
+#### Sign in 
+The access to all URLs has been restricted, so the first page the user will see is the sign in page. The users will have to sign in to see all the Data visualisation content.
+A default user has been set in order to enable the access. To access only the email and the password is needed.
 
+![SignInPage](../img/SignInPage.png)
+>*Illustration 2. Sign in page.*
+
+[Top](#user-manual)
+#### Create new users 
+A **create new user** page has been added in order to create alternative users and enable the access to different users. The new users can only be created by another user, so it will be necessary to be signed in. 
+This new users will have permission to access, see and edit, if possible, all the data visualisation features.
+
+![SignUpPage](../img/SignUpPage.png)
+>*Illustration 3. Create new user page.*
+>
 ### Initial configuration assistant
 
 When the user accesses the Enabler for the first time, the first step is to configure a Context Broker instance in order for data to start flowing. Hence, an information panel will appear giving the user the option to begin this configuration through the **Configuration page**.
 
 ![ConfigurationAssistant](../img/ConfigurationAssistant.png)
-> *Illustration 2. Initial configuration pop-up*
+> *Illustration 4. Initial configuration pop-up*
 
 [Top](#user-manual)
 
@@ -76,33 +93,33 @@ The user should introduce the desired name for that particular Context Broker in
 Before proceeding, it is recommended to check the status of the Context Broker instance to ensure that the configuration provided is valid and ready to be used. This can be done by pressing the yellow checkbox next to the URL.
 
 ![Configuration Page](../img/ConfigurationPage.png)
->*Illustration 3. Configuration Panel*
+>*Illustration 5. Configuration Panel*
 
 ![ContextBrokerFields](../img/ContextBrokerFields.png)
->*Illustration 4. Adding a new Context Broker*
+>*Illustration 6. Adding a new Context Broker*
 
 If the URL introduced for the Context Broker is incorrect, the user will be informed with an unsuccesful connection message under the URL input.
 
 ![ContextBrokerIncorrectURL](../img/ContextBrokerIncorrectURL.png)
->*Illustration 5. Incorrect Context Broker URL.*
+>*Illustration 7. Incorrect Context Broker URL.*
 
 After the initial configuration of the Context Broker instance is done, the user must choose the desired entities and attributes to be displayed in the enabler by pressing the **Choose entities and attributes** button.
 
 ![ContextBrokerCorrectURL](../img/ContextBrokerCorrectURL.png)
->*Illustration 6. Successful Context Broker connection.*
+>*Illustration 8. Successful Context Broker connection.*
 
 ![ContextBrokerEntities](../img/ContextBrokerEntities.png)
->*Illustration 7. Selecting the entities and attributes.*
+>*Illustration 9. Selecting the entities and attributes.*
 
 The entities and attributes can be selected and unselected by pressing the checkbox or the name of the desired option. **At least one entity must be selected**, otherwise an error message will appear.
 
 If various Context Broker instances are configured, they will appear as a group of tabs where each one can be displayed for its edition. In order to delete a Context Broker instance, the bin icon must be pressed. A confirmation message will appear asking the user to confirm the action.
 
 ![ContextBrokerTabs](../img/ContextBrokerTabs.png)
->*Illustration 8. Context Broker List.*
+>*Illustration 10. Context Broker List.*
 
 ![DeleteService](../img/DeleteService.png)
->*Illustration 9. Deleting a Context Broker.*
+>*Illustration 11. Deleting a Context Broker.*
 
 [Top](#user-manual)
 
@@ -117,36 +134,36 @@ More information of services can be found [here](https://fiware-orion.readthedoc
 If the user has access to one or several services, they can be added, edited and eliminated in the enabler. In order to add a new service to a Context Broker instance, the **The context Broker uses services** checkbox must be selected. A new panel with the **Services configuration** will be opened where the user will be able to start configuring them.
 
 ![ContextBrokerAddingServices](../img/ContextBrokerAddingServices.png)
->*Illustration 10. Configuring services.*
+>*Illustration 12. Configuring services.*
 
 The user will be able to create services by pressing the **Add service** button.
 
 ![ContextBrokerNewService](../img/ContextBrokerNewService.png)
->*Illustration 11. Adding services.*
+>*Illustration 13. Adding services.*
 
 The user will need to configure the name of the service and, if needed, the service path. To check its availability, the **Choose entities and attributes** button should be pressed. If the configuration is incorrect, the user will be informed with an entities not found message under the button.
 
 ![ContextBrokerServiceIncorrectURL](../img/ContextBrokerServiceIncorrectURL.png)
->*Illustration 12. Incorrect service name.*
+>*Illustration 14. Incorrect service name.*
 
 ![ContextBrokerServiceIncorrectPath](../img/ContextBrokerServiceIncorrectPath.png)
->*Illustration 13. Incorrect service path.*
+>*Illustration 15. Incorrect service path.*
 
 If the configuration is correct, a **list of the available entities and attributes** will appear, where the user will be able to **select or unselect the desired ones**. **At least one entity must be selected**, otherwise an error message will appear.
 
 ![ContextBrokerServiceEntities](../img/ContextBrokerServiceEntities.png)
->*Illustration 14. Correct service name and path.*
+>*Illustration 16. Correct service name and path.*
 
 ![MessageIncorrectConfiguration](../img/MessageIncorrectConfiguration.png)
->*Illustration 15. Error message for no entities selected.*
+>*Illustration 17. Error message for no entities selected.*
 
 If various services are configured, they will appear as a group of tabs where each one can be displayed for its edition. In order to delete a service, the garbage icon must be pressed. A confirmation message will appear asking the user to confirm the action.
 
 ![ContextBrokerServicesTabs](../img/ContextBrokerServicesTabs.png)
->*Illustration 16. List of services.*
+>*Illustration 18. List of services.*
 
 ![DeleteService](../img/DeleteService.png)
->*Illustration 17. Deleting a Service.*
+>*Illustration 19. Deleting a Service.*
 
 [Top](#user-manual)
 
@@ -157,7 +174,7 @@ Once the entities and the attributes of the Context Broker instance (or one of i
 The user will **only be allowed to select one main attribute per each category**.
 
 ![MainAttributesInConfiguration](../img/ServicesMainAttributes.PNG)
->*Illustration 18. Configuring main attributes*
+>*Illustration 20. Configuring main attributes*
 
 This information will be explained in the [Main attributes section](#main-attributes) of this document.
 
@@ -168,7 +185,7 @@ This information will be explained in the [Main attributes section](#main-attrib
 Once the user has finished configuring the Context Broker instance, its services and tools, the **Apply Configuration** button at the top of the page must be pressed to save the overall configurations. **Otherwise, the current configuration will not be effective**.
 
 ![MessageUnsavedChanges](../img/MessageUnsavedChanges.png)
->*Illustration 24. Saving the configuration.*
+>*Illustration 21. Saving the configuration.*
 
 [Top](#user-manual)
 
@@ -185,7 +202,7 @@ Regarding the representation of the sensors, all of them must have coordinates f
 When zooming out of the map, the icons will start to cluster together in a single notification, showing the number of sensors available in the area. As the user zooms in, the sensors will start to separate and appear in the exact locations.
 
 ![MapSensors](../img/MapSensors.png)
->*Illustration 25. The Enabler Map.*
+>*Illustration 22. The Enabler Map.*
 
 [Top](#user-manual)
 
@@ -196,15 +213,14 @@ The user is be able to select one single main attribute for each entity from the
 The user will also be able to visualize on a side panel the list of main attributes selected for each type of sensor.
 
 ![MapWithMainAttributes](../img/MapSensorsWithMainAttributes.PNG)
->*Illustration 26. Main attributes over the sensors*
+>*Illustration 23. Main attributes over the sensors*
 
 The enabler will also give the user the possibility to **enable or disable the display of the main attributes** and the side panel through a switch option.
 
 ![MapWithoutMainAttributes](../img/MapSensorsWithoutMainAttributes.PNG)
->*Illustration 27. Main attributes disabled*
+>*Illustration 24. Main attributes disabled*
 
 [Top](#user-manual)
-
 ### Sensors
 
 The icons that appear on the map correspond to a list of categories that classifies the data in different groups depending on the type of information it gives:
@@ -253,23 +269,23 @@ If more information about these categories is needed, the FIWARE data models can
 Whenever a geo-localized sensor is selected on the map, an information panel with the sensor’s information will appear. This panel will contain the attributes that were selected while configuring the Context Broker instance along with the real time data they have available.
 
 ![PopupAttributes](../img/PopupAttributes.png)
->*Illustration 28. Example of pop-up attributes.*
+>*Illustration 25. Example of pop-up attributes.*
 
 ![SensorPopup](../img/SensorPopUp.png)
->*Illustration 29. Sensor pop-up.*
+>*Illustration 26. Sensor pop-up.*
 
 If the user unselects any of the attributes in the configuration of the desired Context Broker instance, they will disappear from the pop-up as seen in the information panel.
 
 ![ContextBrokerServiceAttributesFiltered](../img/ContextBrokerServiceAttributesFiltered.png)
->*Illustration 30.Example of unselecting pop-up attributes.*
+>*Illustration 27.Example of unselecting pop-up attributes.*
 
 ![MapPopUpAfterFilterAttrs](../img/MapPopUpAfterFilterAttrs.png)
->*Illustration 31. Same information panel without the attributes.*
+>*Illustration 28. Same information panel without the attributes.*
 
 ![SensorPopupCharacteristics](../img/SensorPopUpCharacteristics.png)
->*Illustration 32. Sensor's information panel characteristics.*
+>*Illustration 29. Sensor's information panel characteristics.*
 
-Apart from showing the real-time data of the sensor, the information panel offers two other functionalities: **raw data overview** and **historical data overview**.
+Apart from showing the real-time data of the sensor, the information panel offers another funcionality: **raw data overview**.
 
 [Top](#user-manual)
 
@@ -280,40 +296,87 @@ The RAW data Overview consists in showing the **sensor’s information in a RAW 
 The user will be able to copy the complete JSON by pressing on the **Copy** button.
 
 ![SensorOverview](../img/MapSensorOverview.PNG)
->*Illustration 33. RAW data Overview*
+>*Illustration 30. RAW data Overview*
 
 [Top](#user-manual)
 ### Historical Data
 A new page has been added in order to see the historical data persisted from the sensors. The user can access to it using the top menu link, which will redirect to this specific page. It contains Kibana dashboards with graphs, charts and tables to display the historical data. Different dashboards has been added to separate group the info depending on the data souces.
 
-![HistoricalDashboard](../img/HistoricalDashboard.PNG)
->*Illustration 34. Historical data dashboard*
+![HistoricalDashboard](../img/HistoricalDashboard.png)
+>*Illustration 31. Historical data dashboard*
 
 To switch between the different dashboards, the user will use the buttons placed at the top-right of the page by clicking the proper button, which have a descriptive name.
 
-![HistoricalDashboardButtons](../img/HistoricalDashboardButtons.PNG)
->*Illustration 35. Buttons to switch between different Kibana dashboards*
-
+![HistoricalDashboardButtons](../img/HistoricalDashboardButtons.png)
+>*Illustration 32. Buttons to switch between different Kibana dashboards*
 
 [Top](#user-manual)
 
+### Rules 
+The user will be able to create, edit and remove rules, that will send a notification using the **alert data model** when one of the set rules is met. A rule consists of defining a threshold for a specific attribute, depending on the selected service, which will send an alert for the category selected by the user.
+
+![RulesPage](../img/RulesPage.png)
+>*Illustration 33. Rules page.*
+
+[Top](#user-manual)
+
+#### Create new rule
+To create a new rule, the user will click the **Add rule** button and a new accordion will be created to be filled with the required fields. The rules require a name, the service where the data is taken, the attribute that will be checked, the operator and the threshold. For the alert type, the user will select the category of the rule, the subcategory, the severity and the recurrence. 
+
+![CreateRule](../img/CreateRule.png)
+>*Illustration 34. Creation of a new rule .*
+
+To finish the creation of the rule, the user will press the **Apply rules** button placed at the top center of the page.
+[Top](#user-manual)
+
+#### Edit rule
+If various services are configured, they will appear as a group of tabs where each one can be displayed for its edition.
+
+![EditRule](../img/EditRule.png)
+>*Illustration 35. Editing a rule .*
+
+To save the changes in the rule, the user will press the **Apply rules** button placed at the top center of the page, as it is done in the creation of a new rule.
+
+[Top](#user-manual)
+
+#### Delete rule
+ In order to delete a service, the garbage icon must be pressed. A confirmation message will appear asking the user to confirm the action.
+ 
+ ![RulesList](../img/RulesList.png)
+>*Illustration 36. List of the rules.*
+
+![DeleteRule](../img/DeleteRule.png)
+>*Illustration 37. Deleting a rule confirmation.*
+
+[Top](#user-manual)
 ### Location Search Bar
 
 A search bar is available to localize cities on the map in a faster way. The user will have to introduce the name of the city they wish to see and, after selecting one of the results, the map will automatically change its focus to the city.
 
 ![MapSearchBar](../img/MapSearchBar.png)
->*Illustration 45. Using the search bar.*
+>*Illustration 38. Using the search bar.*
 
 [Top](#user-manual)
+### Notifications
+To see the alerts launched with the created rules, a kibana dashboard has been created and included to a data visualisation page in order to show all the alerts. To access the notifications panel, the user will click on **Notifications** button, placed at the right top menu.
 
+![NotificationsButton](../img/NotificationsButton.png)
+>*Illustration 39. Button to see notifications panel.*
+
+Once the user is in the page, a Kibana dashboard is used to display the diferent alerts launched. Not only as a raw data but also including different charts, graphs and tables that will show the users relevant information about the alerts.
+
+![NotificationsPanel](../img/NotificationsPanel.png)
+>*Illustration 40. Notifications panel used to see the alerts.*
+
+[Top](#user-manual)
 ### Managing the sensors
 
 The user will be able to add dynamic filters to hide or show certain sensors on the map in case they want to focus in a specific aspect of any of the attributes. For instance, if there is a need to localize the higher priority risk alerts in order to take actions faster.
 
-There are **two types of filters** available: the first is the **layers** option, based on checking or unchecking entities/attributes to be displayed, and the second is the **filters** option, based on filtering sensors based on attribute's conditions.
+There is an **available filter** to filter by **layers**, based on checking or unchecking entities/attributes to be displayed and a Center map button, which allows the user to center the map in case of moving thorugh the map too far from the pointers.
 
-![MapButtons](../img/MapButtons.png)
->*Illustration 46. Filtering Options.*
+![MapButton](../img/MapButton.png)
+>*Illustration 41. Filtering Option and center map button.*
 
 [Top](#user-manual)
 
@@ -321,45 +384,9 @@ There are **two types of filters** available: the first is the **layers** option
 
 This option is available by clicking the **Layers** button. Its objective is to show/hide types of sensors on the map by selecting/unselecting, respectively, the checkboxes next to the desired variables.
 
-![MapLayersPanel](../img/MapLayersPanel.png)
->*Illustration 47. Selecting entities and attributes.*
+![MapLayers](../img/MapLayers.png)
+>*Illustration 42. Selecting entities and attributes.*
 
 **This configuration is not stored**, so it will be discarded after closing the enabler.
-
-[Top](#user-manual)
-
-#### Filters
-
-In order to add a new condition to any of the attributes of the current sensors, the user has to press the **Filters** button.
-
-The objective of this functionality is to provide a filter mechanism to show the sensors that match the specified conditions and hide the ones that do not. For instance, the user would like to visualize only the parking sensors that have more than 50 free slots.
-
-![MapFiltersPanel](../img/MapFiltersPanel.png)
->*Illustration 48. Adding a condition.*
-
-![MapFiltersAdded](../img/MapFiltersAdded.png)
->*Illustration 49. After the Condition is Added.*
-
-This filtering mechanism is dynamically generated based on the configured data of the Context Broker instance. The creation of a specific condition is done by steps:
-
-1. The user will have to select the category.
-2. The user will have to select the entity.
-3. The user will have to select the attribute. Depending on its type (text or numeric), a different type of filter will appear and the user will be able to add the desired condition.
-
-The types of conditions are the following:
-
-- Numeric conditions. The user introduces the desired numeric value and chooses between:
-  - Greater than “>”.
-  - Greater or equal to “>=”.
-  - Less than “<”.
-  - Less or equal to “<=”.
-  - Equal to “=”.
-- Text conditions:
-  - Contains “Word”.
-  - Has prefix or suffix.
-
-After choosing the desired condition, the user will have to write the comparing value in the empty box and press the **Add** button.
-
-By pressing the **Clear** button, the user will be able to clear the current filter condition that is being created. In order to delete an existing filter condition, the user should press the bin icon. Furthermore, to delete all the existing filters, the **Clear** all button should be pressed.
 
 [Top](#user-manual)
