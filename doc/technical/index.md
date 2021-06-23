@@ -16,19 +16,18 @@ The technical documentation focuses in the technical aspects of the Context Brok
   - [Enabler Back-end](#enabler-back-end)
   - [Enabler Front-end](#enabler-front-end)
 - [Used technologies](#used-technologies)
-- [Images in DockerHub](#images-in-dockerhub)
-  - [Master branch](#master-branch)
-  - [Develop branch](#develop-branch)
 - [Understanding the code](#understanding-the-code)
-  - [How to generate new graphs](#how-to-generate-new-graphs)
   - [How to change the refresh time of the information](#how-to-change-the-refresh-time-of-the-information)
+  - [How to change historical data dashboards](#how-to-change-historical-data-dashboards)
+  - [How to change notifications dashboard](#how-to-change-notifications-dashboard)
+  - [How to change polygon colors](#how-to-change-polygon-colors)
   - [How the information of the map is updated](#how-the-information-of-the-map-is-updated)
   - [Supported types of locations](#supported-types-of-locations)
   - [Supported types of subscriptions](#supported-types-of-subscriptions)
     - [Subscriptions for a specific ID with multiple attributes](#subscriptions-for-a-specific-id-with-multiple-attributes)
     - [Subscriptions for a group of entities of the same type with multiple attributes](#subscriptions-for-a-group-of-entities-of-the-same-type-with-multiple-attributes)
     - [Subscriptions for a group of entities with an idPattern with multiple attributes](#subscriptions-for-a-group-of-entities-with-an-idpattern-with-multiple-attributes)
-  - [How the historical data page gets the subscribed attributes](#how-the-historical-data-page-gets-the-subscribed-attributes)
+ 
 
 ### Launch the application for development
 
@@ -168,125 +167,9 @@ The following technologies have been used for the development and the deployment
 
 [Top](#technical-documentation)
 
-### Images in DockerHub
-
-As detailed in the [deployment manuals](../tutorials/index.md), the **public images** for the deployment of the enabler are available in [DockerHub](https://hub.docker.com/u/cbenablereveris).
-
-As the project is divided in two parts (Front-end and Back-end), there are **two Docker images** for its deployment:
-
-- cb-visualisation-data-enabler (Front-end)
-- cb-visualisation-data-enabler-server (Back-end)
-
-Additionally, there are images for two branches of the [GitHub repository](https://github.com/ConnectingEurope/Context-Broker-Data-Visualisation), so each branch has its own images in DockerHub.
-
-[Top](#technical-documentation)
-
-#### Master branch
-
-The tag for the two Docker images of the **master** branch is called **latest**.
-
-The commands to download the **master branch images** are:
-
-```bash
-docker pull cbenablereveris/cb-visualisation-data-enabler:latest
-docker pull cbenablereveris/cb-visualisation-data-enabler-server:latest
-```
-
-[Top](#technical-documentation)
-
-#### Develop branch
-
-The tag for the two Docker images of the **develop** branch is called **dev**. Those images are used for **testing purposes** (deployments, etc).
-
-The commands to download the **develop branch images** are:
-
-```bash
-docker pull cbenablereveris/cb-visualisation-data-enabler:dev
-docker pull cbenablereveris/cb-visualisation-data-enabler-server:dev
-```
-
-[Top](#technical-documentation)
-
 ### Understanding the code
 
 The objective of this section is to explain different technical aspects of the enabler, including new developments, modifying parts of the enabler, etc.
-
-[Top](#technical-documentation)
-
-#### How to generate new graphs
-
-The graphs of the enabler are generated using [ChartJS](https://www.chartjs.org/). There are available different [types of graphs](https://www.chartjs.org/docs/latest/charts/).
-
-Currently, the enabler uses the [line graph](https://www.chartjs.org/docs/latest/charts/line.html) for numerical attributes and the [bar graph](https://www.chartjs.org/docs/latest/charts/bar.html) for text (String) attributes.
-
-The following steps explain how to develop a new graph:
-
-1. Open the **historical-data-graph.component.ts** and **historical-data-graph.component.html** files.
-
-2. In the **historical-data-graph.component.ts**, there are two different configurations for the line and bar graphs of the enabler:
-
-    ```typescript
-        protected chartConfigForNumber: any = {
-            type: 'line',
-            options: { scales: { yAxes: [{ ticks: { beginAtZero: false } }] } },
-        };
-
-        protected chartConfigForString: any = {
-            type: 'bar',
-            options: {
-                scales: { yAxes: [{ ticks: { beginAtZero: true } }] },
-                legend: { labels: { boxWidth: 0 } },
-            },
-        };
-
-    ```
-
-    A **new configuration** is needed for the new graph to be developed:
-
-    ```typescript
-        protected newChartConfig: any = {
-            type: 'TYPE_OF_CHART',
-            options: { OPTIONS_OF_THE_CHART } },
-        };
-    ```
-
-3. There are also two ViewChild for the current graphs:
-
-    ```typescript
-        @ViewChild('graphicCardForNumber', { static: false }) private graphicCardForNumber: GraphicCardComponent;
-        @ViewChild('graphicCardForString', { static: false }) private graphicCardForString: GraphicCardComponent;
-    ```
-
-    So a **new ViewChild** is needed for the new graph. With the following structure:
-
-    ```typescript
-        @ViewChild('newGraphicCard', { static: false }) private newGraphicCard: GraphicCardComponent;
-    ```
-
-4. There is a function called **getHistoricalData()** which is in charge of obtaining the historical data for each type of graph. Inside of that functions, there are other functions, and all of them end up coming to the **getAggregatedData()** function. This function is inside the service **HistoricalDataService**, which has the needed functions in order to retrieve the data (raw or aggregated) from the STH-Comet.
-
-5. The available **aggregated methods of STH-Comet** are already defined in the **AggregateMethod** enum.
-
-6. At this point, new functions may be needed to manage the desired data, based on the new graph purposes.
-
-7. Go to the **historical-data-graph.component.html** file and look at the two existent graphs:
-
-    ```html
-        <!-- Graphic for numbers -->
-        <app-graphic-card [style.display]="attrType === attrTypeEnum.NUMBER ? 'block' : 'none'" #graphicCardForNumber [chartConfig]="chartConfigForNumber"></app-graphic-card>
-
-        <!-- Graphic for strings -->
-        <app-graphic-card [style.display]="attrType === attrTypeEnum.STRING ? 'block' : 'none'"  #graphicCardForString [chartConfig]="chartConfigForString"></app-graphic-card>
-    ```
-
-    The **new graph** has to be added below them, with its correspondent variables:
-
-    ```html
-        <!-- New graphic -->
-        <app-graphic-card [style.display]="attrType === attrTypeEnum.NUMBER ? 'block' : 'none'" #newGraphicCard [chartConfig]="newChartConfig"></app-graphic-card>
-    ```
-
-8. If all the previous steps are completed and the new needed functions have been correctly added, the development of the new graph should be ready.
 
 [Top](#technical-documentation)
 
@@ -303,7 +186,54 @@ This refresh time can be changed, modifying a the value of a variable in the map
 In this case, the value of the *intervalRefreshMilliseconds* variable (60000) can be replaced by the desired refresh time (in milliseconds).
 
 [Top](#technical-documentation)
+### How to change historical data dashboards
+The dashboards of the enabler are generated using [Kibana](https://www.elastic.co/es/kibana).
 
+The following steps explain how to change the current kibana dashboards to another dashboard.
+ 1. Open the **historical-dashboard.component.ts** and **historical-dashboard.component.html** files.
+ 2. In the **historical-dashboard.component.ts**, there are the different links to each dashboard which will be replaced with the desired URL dashboard and a variable used to switch between dashboards:
+```typescript
+public firstDashboard: any ="http://link-to-first-dashboard.com";
+public secondDashboard: any ="http://link-to-second-dashboard.com";
+public dashboardRef: any;
+
+```
+ 3. The name of the variable should be replaced as well with a descripting name.
+ 4. It needs a sanitiizer to enable the URL as a secure source and a default dashboard to be displayed:
+ ```typescript
+    constructor(private sanitizer: DomSanitizer){
+    this.dashboardRef = this.sanitizer.bypassSecurityTrustResourceUrl(this.firstDashboard);
+    }
+ ```
+ 5. Once all the different links has been changed, we will need to change the switch that acts as a orchestrator to get the proper dashboard link:
+ ```typescrypt
+ public changeDashboard(dashboard: string): void{
+  swtich(dashboard){
+    case 'first':
+      this.dashboardRef = this.sanitizer.bypassSecurityTrustResourceUrl(this.firstDashboard);
+      break;
+    case 'second':
+      this.dashboardRef = this.sanitizer.bypassSecurityTrustResourceUrl(this.secondDashboard);
+      break;
+  }
+ }
+ ```
+ 6. In the **historical-dashboard.component.html**, add the needed buttons by copying the existing one and change the name and the string passed to the function:
+ ```html
+<button class="btn text-white mx-1 col-12 col-auto float-right" (click)="changeDashboard('first')">First dashboard</button>
+<button class="btn text-white mx-1 col-12 col-auto float-right" (click)="changeDashboard('second')">Second dashboard</button>
+
+```
+7. The new dashboards will be displayed if the links are properly set 
+
+[Top](#technical-documentation)
+### How to change notifications dashboard
+
+[Top](#technical-documentation)
+
+### How to change polygon colors
+
+[Top](#technical-documentation)
 #### How the information of the map is updated
 
 In order to optimize the load and update of the information of the map, it is updated based on the following actions:
@@ -340,7 +270,7 @@ This is an example:
 },
 ```
 
-The **location** attribute of the sensors has to follow the previous schema. The type of the coordinates has to be **Point**, and its value has to be a **list of two coordinates**. Otherwise, the sensors won't be supported in the enabler (i.e. LineString).
+The **location** attribute of the sensors has to follow the previous schema. The type of the coordinates has to be **Point** or **Polygon**, and its value has to be a **list of two coordinates**. Otherwise, the sensors won't be supported in the enabler (i.e. LineString).
 
 [Top](#technical-documentation)
 
@@ -468,23 +398,5 @@ This is the structure of the request for this kind of subscription:
   }
 }
 ```
-
-[Top](#technical-documentation)
-
-#### How the historical data page gets the subscribed attributes
-
-First of all and **before loading** the historical data page, a **calculation** is made in order to collect the attributes which have subscriptions for changes.
-
-For that, the Enabler gets the **subscribed attributes from the subscription list of the Context Broker** (it is external to the enabler, configuration of the Context Broker) and **compares** it with the **configured attributes on the Configuration page** for the type of the selected sensor (which are the ones displayed on the information panel).
-
-Then, using that information, the enabler **connects with STH-Comet** in order to receive the information of the page.
-
-As a resume, **the information is previously collected, combined and structured** before being displayed in the historical data page of the enabler.
-
-This is an example of a calculation:
-
-- List of attributes of the subscription list of the Context Broker: [ATTR1, ATTR2, ATTR3, ATTR4, ATTR5]
-- List of attributes for the type of the sensor in the Configuration page: [ATTR2, ATTR4, ATTR5, ATTR6]
-- Attributes to be displayed in the historical data page: [ATTR2, ATTR4, ATTR5]
 
 [Top](#technical-documentation)
