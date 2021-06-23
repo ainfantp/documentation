@@ -18,24 +18,14 @@ The enabler gives the opportunity to experiment with a sensor’s real-time data
     - [Services](#services)
     - [Configuring main attributes](#configuring-main-attributes)
     - [Subscriptions Overview](#subscriptions-overview)
-  - [Historical data tools](#historical-data-tools)
-    - [Cygnus](#cygnus)
-    - [STH-Comet](#sth-comet)
-    - [Configuring the tools](#configuring-the-tools)
   - [Saving the configuration](#saving-the-configuration)
 - [Dashboard](#dashboard)
   - [Map](#map)
     - [Main attributes](#main-attributes)
+  - [Historical data](#historical-data)
   - [Sensors](#sensors)
     - [RAW data Overview](#raw-data-overview)
     - [Historical data Overview](#historical-data-overview)
-      - [Tables](#tables)
-        - [Filters of the table](#filters-of-the-table)
-        - [Information of the table](#information-of-the-table)
-      - [Graphs](#graphs)
-        - [Filters of the graph](#filters-of-the-graph)
-        - [Information of the graph](#information-of-the-graph)
-      - [CSV Data Export](#csv-data-export)
   - [Location Search Bar](#location-search-bar)
   - [Managing the sensors](#managing-the-sensors)
     - [Layers](#layers)
@@ -173,64 +163,6 @@ This information will be explained in the [Main attributes section](#main-attrib
 
 [Top](#user-manual)
 
-#### Subscriptions Overview
-
-In order to check if the attributes of the entities of a Context Broker instance (or its services) are subscribed to changes (this means, they are generating historical data), there is a button called **Subscriptions Overview**.
-
-This button shows if there are **active subscriptions for the current configuration**, and also indicates if there are not.
-
-![SubscriptionsOverviewButton](../img/ConfigurationServicesSubsOverviewButton.PNG)
->*Illustration 19. Subscriptions Overview button in the Configuration page*
-
-If there are subscriptions for the current configuration, a new window is displayed in read-only mode. It is also possible to copy the technical information (in JSON format) by pressing the button **Copy subscriptions JSON**.
-
-![SubscriptionsOverview](../img/SubscriptionsOverview.PNG)
->*Illustration 20. Subscriptions Overview*
-
-Additionally, a message is displayed under the button if there are not subscriptions.
-
-![SubscriptionsOverviewNoSubsFound](../img/ConfigurationNoSubscriptionsFound.PNG)
->*Illustration 21. No subscriptions found*
-
-[Top](#user-manual)
-
-### Historical data tools
-
-In order to complement the real-time data, the Enabler offers the possibility to combine it with historical data. Hence, the user is able to optionally configure tools for its implementation in the Configuration page.
-
-The historical data in the Enabler supports two tools that should be configured for each of the Context Broker instances as they work together: **Cygnus** and **STH-Comet**.
-
-The [architecture of the enabler](../technical/index.md#architecture) has been designed to integrate both Cygnus and STH-Comet, as the documentation of the [formal mode](https://github.com/FIWARE/tutorials.Short-Term-History#formal-mode-cygnus--sth-comet) indicates. However, it is also possible to use the enabler with the [minimal mode architecture](https://github.com/FIWARE/tutorials.Short-Term-History#minimal-mode-sth-comet-only) (configuring only STH-Comet).
-
-[Top](#user-manual)
-
-#### Cygnus
-
-The first of this two tools is Cygnus. It acts as a connector between the Context Broker’s information that the sensors produce and the MongoDB database that will store that information. In other words, Cygnus is subscribed to the information the Context Broker produces and creates the historical data for the database. More information can be found [here](https://fiware-cygnus.readthedocs.io/en/latest/).
-
-[Top](#user-manual)
-
-#### STH-Comet
-
-The second tool is STH-Comet. In essence, this tool retrieves the historical data created by Cygnus from the database and allows the user to consult and work with it. More information can be found [here](https://fiware-sth-comet.readthedocs.io/en/latest/).
-
-[Top](#user-manual)
-
-#### Configuring the tools
-
-If the user wants to use the historical data in the enabler, **Cygnus and STH-Comet must be configured for each of the Context Broker instances** (unless the [minimal mode architecture](https://github.com/FIWARE/tutorials.Short-Term-History#minimal-mode-sth-comet-only) is being used).
-The user should introduce the desired URL and the chosen port for each of the tools.
-
-Before proceeding, it is recommended to check the status of the tools to ensure that the configuration provided is valid and ready to be used. This can be done by pressing the yellow checkbox next to the URL. If any of the tools is not available, the configuration and exportation of the historical data will not be possible. If the configuration is incorrect, the user will be informed with an unsuccessful connection message.
-
-![HistoricalDataConfigPanel](../img/HistoricalDataConfigPanel.png)
->*Illustration 22. Cygnus and STH-Comet tools.*
-
-![CygnusIncorrectURL](../img/CygnusIncorrectURL.png)
->*Illustration 23. Incorrect Cygnus or STH-Comet URL.*
-
-[Top](#user-manual)
-
 ### Saving the configuration
 
 Once the user has finished configuring the Context Broker instance, its services and tools, the **Apply Configuration** button at the top of the page must be pressed to save the overall configurations. **Otherwise, the current configuration will not be effective**.
@@ -351,133 +283,16 @@ The user will be able to copy the complete JSON by pressing on the **Copy** butt
 >*Illustration 33. RAW data Overview*
 
 [Top](#user-manual)
+### Historical Data
+A new page has been added in order to see the historical data persisted from the sensors. The user can access to it using the top menu link, which will redirect to this specific page. It contains Kibana dashboards with graphs, charts and tables to display the historical data. Different dashboards has been added to separate group the info depending on the data souces.
+![HistoricalData](../img/HistoricalDashboard.PNG)
+>*Illustration 34. Historical data dashboard*
 
-#### Historical data Overview
+To switch between the different dashboards, the user will use the buttons placed at the top-right of the page by clicking the proper button, which have a descriptive name.
 
-The historical data overview consists in providing a consultation page of the historical data of the selected sensor. Note that this option will only be available if the historical data tools were previously configured.
+![DashboardsButtons](../img/HistoricalDashboardButtons.PNG)
+>*Illustration 35. Buttons to switch between different Kibana dashboards*
 
-In this page, this data will be read from the available historical data of the sensor and the user will be able to choose the rage of time for it to be represented i.e. from one date to other.
-
-![ParkingPopup](../img/ParkingPopUp.png)
->*Illustration 34. Historical data option.*
-
-Note that the applied filters will be maintained when consulting the historical data. For more information, consult the section [How the historical data page gets the subscribed attributes](../technical/index.md#how-the-historical-data-page-gets-the-subscribed-attributes) in the technical documentation.
-
-![HistoricalDataPage](../img/HistoricalDataPage.png)
->*Illustration 35. Historical data window.*
-
-This page is divided into two sections: **table representation** and **graph representation**.
-
-[Top](#user-manual)
-
-#### Tables
-
-After selecting the option of visualizing historical data from a sensor, a table with the sensor’s attributes’ information (as columns) will appear.
-
-![HistoricalDataTable](../img/HistoricalDataTable.png)
->*Illustration 36. Attribute table.*
-
-[Top](#user-manual)
-
-##### Filters of the table
-
-The user will be able to **filter the data in the table** by date and time. The filter appears at the top of the table and gives the opportunity to select between two dates or just to put a limit for the data. For instance, if there is only the need to check the data from a certain date, only the **From** input will need to be filled.
-
-![HistoricalDataTimeFilter](../img/HistoricalDataTimeFilter.png)
->*Illustration 37. Date and time filters*
-
-Pressing on the date and time options, the user will be able to configure the filter. A calendar will appear allowing the user to select the desired day and time. If the filter is no longer needed it can be deleted by pressing on the **Clear** button next to the filters.
-
-![HistoricalDataTableFilters](../img/HistoricalDataTableFilters.png)
->*Illustration 38. Filter calendar.*
-
-[Top](#user-manual)
-
-##### Information of the table
-
-The information of the table is based on **RAW data**, just as stored in the database.
-
-This table maintains the date filters that were configured before and displays the attributes in the table from the newest to the oldest. The **number of results per page can be configured**, allowing to show 10, 25, 50, 75 or 100 results per page.
-
-The rest of the entries can be consulted by different means:
-
-- By clicking the number of the desired page.
-
-- By clicking the red highlighted buttons, which shows the previous or the subsequent page.
-
-- By clicking the green highlighted buttons, which will show the first or the last page of the table.
-
-![HistoricalDataTableMovingPage](../img/HistoricalDataTableMovingPage.png)
->*Illustration 39. Moving between pages*
-
-![HistoricalDataTableTotalEntries](../img/HistoricalDataTableTotalEntries.png)
->*Illustration 40. Total entries.*
-
-Also, the table informs of the entries that are being shown at the moment and the total number of entries that are available to consult.
-
-Note the attributes of complex type (lists, JSONs, etc) won't be represented in the table, but they will be exported in the [CSV export](#csv-data-export).
-
-[Top](#user-manual)
-
-#### Graphs
-
-The information of the graph is based on **aggregated data**, collecting the historical data of the database and transforming it.
-
-The purpose of this functionality is to help the user to further understand the meassures being displayed on the table. With the aid of the graph representation of the attribute’s evolution, the user can comprehend more specific aspects.
-
-![HistoricalDataGraph](../img/HistoricalDataGraph.png)
->*Illustration 41. Historical data graph.*
-
-Currently, the enabler provides **two types of graphs**:
-
-- **Line graphs** for numerical attributes.
-- **Bar graphs** for text (String) attributes.
-
-Depending on the type of the selected attribute, a type of graph will be displayed.
-
-It is also possible to develop new graphs for new purposes, following the [How to generate new graphs](../technical/index.md#how-to-generate-new-graphs) tutorial of the technical documentation.
-
-[Top](#user-manual)
-
-##### Filters of the graph
-
-The user will be able to choose different ranges of time for a same attribute. The ranges of times available are:
-
-- Hours
-- Days
-- Months
-- Years
-
-The user will also be able to customize the beginning of the time period depending on the range selected, in case a specific range of dates or times is required. This can be selected with the calendar option next to the range selection, which will adapt to the range selected. For instance, if the user has selected months, a calendar with the months to choose from will appear.
-
-The table or graph will show up to the next time level. For instance, if the user selects hours, information up to a day will appear. If the user selects months, information of the 12 months will appear. Note that the range selection is independent for tables and graphs.
-
-![HistoricalDataGraphRange](../img/HistoricalDataGraphRange.png)
->*Illustration 42. Range Selection.*
-
-[Top](#user-manual)
-
-##### Information of the graph
-
-The user should choose one of the attributes from the sensor and the range of time desired to be visualized on the graph, as previously mentioned. After selecting all the options, a linear graph will appear automatically with the configuration that the user chose. If the range of time selected is greater than the data available, the graph will appear empty.
-
-![HistoricalDataGraphSelect](../img/HistoricalDataGraphSelect.png)
->*Illustration 43. Graph of one Attribute.*
-
-The default graph will show the information connected with lines and the evolution of the maximum, minimum and average values for that specific attribute. For instance, if a month is being represented it will show the minimum, maximum and average of each day.
-
-If any of these options is not desired, the user can hide it by pressing on the name at the legend that is placed above the graph.
-
-[Top](#user-manual)
-
-### CSV Data Export
-
-After the table has been configured, the user will have the possibility to export the historical data to a compatible format file such as CSV.
-
-Taking advantage of this functionality, the user is able to export the same data of the table and use it for its own purposes, even to generate new graphs in other software.
-
-![HistoricalDataExport](../img/HistoricalDataExport.png)
->*Illustration 44. Historical data exportation.*
 
 [Top](#user-manual)
 
