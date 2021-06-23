@@ -285,12 +285,12 @@ The user will be able to copy the complete JSON by pressing on the **Copy** butt
 [Top](#user-manual)
 ### Historical Data
 A new page has been added in order to see the historical data persisted from the sensors. The user can access to it using the top menu link, which will redirect to this specific page. It contains Kibana dashboards with graphs, charts and tables to display the historical data. Different dashboards has been added to separate group the info depending on the data souces.
-![HistoricalData](../img/HistoricalDashboard.PNG)
+![HistoricalDashboard](../img/HistoricalDashboard.PNG)
 >*Illustration 34. Historical data dashboard*
 
 To switch between the different dashboards, the user will use the buttons placed at the top-right of the page by clicking the proper button, which have a descriptive name.
 
-![DashboardsButtons](../img/HistoricalDashboardButtons.PNG)
+![HistoricalDashboardButtons](../img/HistoricalDashboardButtons.PNG)
 >*Illustration 35. Buttons to switch between different Kibana dashboards*
 
 
