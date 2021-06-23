@@ -373,7 +373,7 @@ Once the user is in the page, a Kibana dashboard is used to display the diferent
 
 The user will be able to add dynamic filters to hide or show certain sensors on the map in case they want to focus in a specific aspect of any of the attributes. For instance, if there is a need to localize the higher priority risk alerts in order to take actions faster.
 
-There is an **available filter** to filter by **layers**, based on checking or unchecking entities/attributes to be displayed and a Center map button, which allows the user to center the map in case of moving thorugh the map too far from the pointers.
+There is an **available filter** to filter by **layers**, based on checking or unchecking entities/attributes to be displayed and a **Center map** button, which allows the user to center the map in case of moving thorugh the map too far from the pointers.
 
 ![MapButton](../img/MapButton.png)
 >*Illustration 41. Filtering Option and center map button.*
