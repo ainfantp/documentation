@@ -146,6 +146,9 @@ private colors: any = {low:"#28a746", moderate:"#5894f4",high:"#ffc107",very_hig
 ```
 4.  In the **setGeoJSONattributes** function, the desired attribute to define de color can be changed:
 ```typescript
+color = this.getColor(entity.fireWeatherIndex);
+```
+```typescript
     private setGeoJSONattributes(model: ModelDto, entity: Entity): string{
             var color: string;
             color = this.getColor(entity.fireWeatherIndex);
