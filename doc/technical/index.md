@@ -69,7 +69,6 @@ The following steps explain how to change the current kibana dashboards to anoth
 public firstDashboard: any ="http://link-to-first-dashboard.com";
 public secondDashboard: any ="http://link-to-second-dashboard.com";
 public dashboardRef: any;
-
 ```
  3. The name of the variable should be replaced as well with a descripting name.
  4. It needs a sanitiizer to enable the URL as a secure source and a default dashboard to be displayed:
@@ -97,14 +96,77 @@ public dashboardRef: any;
 <button class="btn text-white mx-1 col-12 col-auto float-right" (click)="changeDashboard('second')">Second dashboard</button>
 
 ```
-7. The new dashboards will be displayed if the links are properly set 
+7. The new dashboards will be displayed if the links are properly set. 
 
 [Top](#technical-documentation)
 ### How to change notifications dashboard
+The dashboards of the enabler are generated using [Kibana](https://www.elastic.co/es/kibana).
+The following steps explain how to change the current notifications dashboard:
+1. Open the **notifications.component.ts** file.
+2. In the **notifications.component.ts**, there is a notifications link to the dashboard:
+```typescript
+public notifications: any ="http://link-to-notifications-dashboard.com";
+public dashboardRef: any;
+```
+3. As in the previous [How to point](#how-to-change-historical-data-dashboards), it needs a sanitiizer to enable the URL as a secure source and a default dashboard to be displayed:
+```typescript
+    constructor(private sanitizer: DomSanitizer){
+    this.dashboardRef = this.sanitizer.bypassSecurityTrustResourceUrl(this.notifications);
+    }
+ ```
+4. The new notifications dashboard will be changed and it will be shown if the dashboard is compatible with the html iframe tag.
 
 [Top](#technical-documentation)
-
 ### How to change polygon colors
+If the entity has a polygon object in the location attribute, is possible to change the fill and the stroke color depending on a specific value. 
+The following steps explain how to change the colors and the attribute:
+1.  Open the **map-dashboard.component.ts** file.
+2.  In the variables declaration part, there is an colors object with the name and the hexadecimal code of each color we want: 
+```typescript
+private colors: any = {low:"#28a746", moderate:"#5894f4",high:"#ffc107",very_high:"#ec7628",extreme:"#dc3546"}
+```
+3.  Once the colors have been set, the next step is to change the ranges at **getColor** function, placed at **map-dashboard.component.ts** file:
+```typescript
+    private getColor(index: number): string{
+            var color: string;
+            if(index < 5){
+                color = this.colors.low;
+            }else if(index >= 5 && index < 14){
+                color = this.colors.moderate;
+            }else if(index >= 14 && index < 21){
+                color = this.colors.high;
+            }else if(index >= 21 && index < 33){
+                color = this.colors.very_high;
+            }else if(index >= 33){
+                color = this.colors.extreme;
+            }
+
+            return color;
+        }
+```
+4.  In the **setGeoJSONattributes** function, the desired attribute to define de color can be changed:
+```typescript
+    private setGeoJSONattributes(model: ModelDto, entity: Entity): string{
+            var color: string;
+            color = this.getColor(entity.fireWeatherIndex);
+            const geoJSON = '{   "fillColor": "'+ color +'",' +
+                                '"weight": 2,'+
+                                '"opacity": 1,' +
+                                '"color": "'+ color +'",' +  //Outline color
+                                '"fillOpacity": 0.7' +
+                            '}';
+            return geoJSON;
+        }
+```
+5.  For the previous step, make sure to have the attribute name declared in the **Entity** interface. Open the **entity.ts** file and add the proper attribute:
+```typescript
+export interface Entity{
+  id?: string;
+  type?: string;
+  location?:any;
+  fireWeatherIndex?:number;
+}
+```
 
 [Top](#technical-documentation)
 #### How the information of the map is updated
